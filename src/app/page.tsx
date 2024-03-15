@@ -1,6 +1,10 @@
 import { IBM_Plex_Sans } from "next/font/google";
+import Badge from "~/components/badge/badge";
 import EmojiWrapper from "~/components/emoji-wrapper/emoji-wrapper";
 import Link from "~/components/link/link";
+import GolangLogo from "~/assets/icons/golang.png";
+import PythonLogo from "~/assets/icons/python.png";
+import TypescriptLogo from "~/assets/icons/typescript.png";
 
 const IBMPlexSans = IBM_Plex_Sans({ weight: ["600"], subsets: ["latin"] });
 
@@ -20,9 +24,11 @@ export default async function Home() {
       </header>
       <article className="mb-4">
         I am a software developer with a bachelor&apos;s degree in Engineering.
-        I mostly write Javascript (Typescript), Python, and Go. I love working
-        at startups where my impact can be shown quickly, psst! but I also
-        don&apos;t mind big tech (ex Reddit).
+        I mostly write <Badge icon={TypescriptLogo}>Typescript</Badge>,{" "}
+        <Badge icon={PythonLogo}>Python</Badge>, and{" "}
+        <Badge icon={GolangLogo}>Go</Badge>. I love working at startups where my
+        impact can be shown quickly, psst! but I also don&apos;t mind big tech
+        (ex Reddit).
       </article>
 
       <article className="mb-4">
