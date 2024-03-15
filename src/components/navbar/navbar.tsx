@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import clsx from "clsx";
 
 const LINKS: { name: string; url: string }[] = [
   {
@@ -27,16 +26,11 @@ const LINKS: { name: string; url: string }[] = [
 ];
 
 export default function Navbar() {
-  const isActive = (href: string) => href === window?.location?.pathname;
-
   return (
     <nav className="my-12 flex items-center gap-4 md:gap-6">
       {LINKS.map((link) => (
         <Link
-          className={clsx("hover:text-neutral-50", {
-            "text-neutral-50": isActive(link.url),
-            "text-neutral-300": !isActive(link.url),
-          })}
+          className="text-neutral-300 hover:text-neutral-50"
           key={link.name}
           href={link.url}
         >

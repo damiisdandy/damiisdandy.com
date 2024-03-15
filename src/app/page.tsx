@@ -5,18 +5,53 @@ import Link from "~/components/link/link";
 import GolangLogo from "~/assets/icons/golang.png";
 import PythonLogo from "~/assets/icons/python.png";
 import TypescriptLogo from "~/assets/icons/typescript.png";
-
+import ArrowIcon from "~/icons/arrowIcon";
+import { CALENDLY, EMAIL, TWITTER } from "~/constants";
+import { type ReactNode } from "react";
+import clsx from "clsx";
+import Spotify from "~/components/spotify/spotify";
 const IBMPlexSans = IBM_Plex_Sans({ weight: ["600"], subsets: ["latin"] });
+
+const CONTACT_LINKS: { description: string; url: string }[] = [
+  {
+    description: EMAIL,
+    url: `mailto:${EMAIL}`,
+  },
+  {
+    description: "Book a meeting",
+    url: CALENDLY,
+  },
+  {
+    description: "Follow me",
+    url: TWITTER,
+  },
+];
+
+const Heading = ({
+  children,
+  noMargin,
+}: {
+  children: ReactNode;
+  noMargin?: boolean;
+}) => (
+  <h1
+    className={clsx(
+      IBMPlexSans.className,
+      "text-2xl font-bold text-neutral-50",
+      {
+        "mb-3": !noMargin,
+      },
+    )}
+  >
+    {children}
+  </h1>
+);
 
 export default async function Home() {
   return (
     <main>
       <header className="mb-12">
-        <h1
-          className={`${IBMPlexSans.className} text-2xl font-bold text-neutral-50`}
-        >
-          Damilola Jerugba
-        </h1>
+        <Heading noMargin>Damilola Jerugba</Heading>
         <h2>
           Software Developer{" "}
           <EmojiWrapper ariaLabel="high voltage">⚡</EmojiWrapper>
@@ -32,28 +67,47 @@ export default async function Home() {
       </article>
 
       <article className="mb-4">
-        I am a writer and I love to write about software development. Through my
-        writing, I share my experiences and knowledge as a developer. one of my
-        article on React was awarded as the best article of the week on{" "}
-        <Link href="https://dev.to/damiisdandy">Dev.to</Link>. You can read some
-        of my articles on my <Link href="/blog">blog</Link>.
+        Through my writing, I share my experiences and knowledge as a developer.
+        one of my article on React was awarded as the best article of the week
+        on <Link href="https://dev.to/damiisdandy">Dev.to</Link>. You can read
+        my articles on my <Link href="/blog">blog</Link>.
       </article>
 
       <article className="mb-4">
         I am the Co-founder and CTO of{" "}
-        <Link href="https://www.jetronticket.com">Jetron Ticket</Link>, a
-        platform where users can discover events happening around them and buy
-        tickets to the events. We handle the ticketing system for events, both
-        online and offline for event planners across West Africa.
+        <Link href="https://www.jetronticket.com">Jetron Ticket</Link>, We
+        handle the ticketing system for events, both online and offline for
+        event planners across West Africa.
       </article>
 
       <article className="mb-4">
-        As a freelance developer / consultant, I have worked with clients from
-        small businesses, celebrities to big companies. Some of my learning
-        comes from these project since I can apply what I learn to the project.
-        Some of my works are listed below, for more information, checkout{" "}
-        <Link href="/projects">projects</Link>.
+        As a freelance developer / consultant, I have worked on personal
+        projects and with clients from small businesses, celebrities to big
+        companies. Some of my works are listed below, for more information,
+        checkout <Link href="/projects">projects</Link>.
       </article>
+
+      <section id="contact" className="mt-12">
+        <Heading>Contact me</Heading>
+        <div className="flex flex-col gap-3">
+          {CONTACT_LINKS.map((link) => (
+            <span
+              key={link.url}
+              className="flex items-center gap-3 text-neutral-400"
+            >
+              <ArrowIcon />
+              <Link href={link.url} isExternal>
+                {link.description}
+              </Link>
+            </span>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-12">
+        <Heading>What I&apos;m listening to</Heading>
+        <Spotify />
+      </section>
     </main>
   );
 }
