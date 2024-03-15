@@ -12,7 +12,7 @@ type LayoutProps = {
 
 const Container = ({ children }: LayoutProps) => {
   return (
-    <div className="mx-auto md:max-w-3xl lg:max-w-4xl">
+    <div className="mx-auto md:max-w-3xl">
       <Navbar />
       <div className="min-h-[calc(100vh-theme(space.48))]">{children}</div>
       <Footer />
@@ -24,7 +24,7 @@ export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
       <body
-        className={`font-sans ${GeistSans.className} bg-neutral-900 p-5 text-neutral-200`}
+        className={`font-sans ${GeistSans.className} leading bg-neutral-900 p-5 text-neutral-300`}
       >
         <TRPCReactProvider>
           <Container>{children}</Container>
