@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer className="text-sm text-neutral-500">
       <hr className="border-neutral-500" />
-      <div className="mt-2 flex items-center justify-between">
+      <div className="mt-2 flex flex-col justify-between md:flex-row md:items-center">
         <p className="flex items-center gap-2">
           <ArrowIcon className="inline" />{" "}
           <span>

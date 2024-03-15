@@ -14,7 +14,7 @@ const Container = ({ children }: LayoutProps) => {
   return (
     <div className="mx-auto md:max-w-3xl lg:max-w-4xl">
       <Navbar />
-      <div className="min-h-[calc(100vh-theme(space.36))]">{children}</div>
+      <div className="min-h-[calc(100vh-theme(space.48))]">{children}</div>
       <Footer />
     </div>
   );
