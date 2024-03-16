@@ -8,10 +8,10 @@ type LinkProps = {
   isExternal?: boolean;
 };
 
-export default function Link(props: LinkProps) {
+export default function Link({ isExternal, ...props }: LinkProps) {
   const style = `relative text-neutral-50 after:content-[' '] after:width-full after:absolute after:-bottom-[1px] after:left-0 after:block after:h-0.5 after:w-full after:bg-neutral-500 ${props.className}`;
 
-  if (props.href.startsWith("http") || props.isExternal) {
+  if (props.href.startsWith("http") || isExternal) {
     return <a className={style} {...props} target="_blank" />;
   } else {
     return <NextLink className={style} {...props} />;

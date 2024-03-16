@@ -1,4 +1,3 @@
-import { IBM_Plex_Sans } from "next/font/google";
 import Badge from "~/components/badge/badge";
 import EmojiWrapper from "~/components/emoji-wrapper/emoji-wrapper";
 import Link from "~/components/link/link";
@@ -7,10 +6,8 @@ import PythonLogo from "~/assets/icons/python.png";
 import TypescriptLogo from "~/assets/icons/typescript.png";
 import ArrowIcon from "~/icons/arrowIcon";
 import { CALENDLY, EMAIL, TWITTER } from "~/constants";
-import { type ReactNode } from "react";
-import clsx from "clsx";
 import Spotify from "~/components/spotify/spotify";
-const IBMPlexSans = IBM_Plex_Sans({ weight: ["600"], subsets: ["latin"] });
+import Heading from "~/components/heading/heading";
 
 const CONTACT_LINKS: { description: string; url: string }[] = [
   {
@@ -26,26 +23,6 @@ const CONTACT_LINKS: { description: string; url: string }[] = [
     url: TWITTER,
   },
 ];
-
-const Heading = ({
-  children,
-  noMargin,
-}: {
-  children: ReactNode;
-  noMargin?: boolean;
-}) => (
-  <h1
-    className={clsx(
-      IBMPlexSans.className,
-      "text-2xl font-bold text-neutral-50",
-      {
-        "mb-3": !noMargin,
-      },
-    )}
-  >
-    {children}
-  </h1>
-);
 
 export default async function Home() {
   return (
