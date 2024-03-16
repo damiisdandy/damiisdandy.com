@@ -4,10 +4,12 @@ import RedditLogo from "~/assets/icons/reddit.png";
 import ArrowIcon from "~/icons/arrowIcon";
 import Link from "~/components/link/link";
 import { RESUME } from "~/constants";
+import CustomMDX from "~/components/mdx/mdx";
 
 const experienceCount = new Date().getFullYear() - 2020;
 
 export default async function Career() {
+  const source = "[T3 Stack](https://create.t3.gg/)";
   return (
     <div>
       <Heading>My Career</Heading>
@@ -22,6 +24,8 @@ export default async function Career() {
         <Link href={RESUME}>My resume</Link>
       </span>
       <hr className="my-8 border-neutral-500" />
+
+      <CustomMDX source={source} />
     </div>
   );
 }
