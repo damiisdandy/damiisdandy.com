@@ -5,11 +5,13 @@ import ArrowIcon from "~/icons/arrowIcon";
 import Link from "~/components/link/link";
 import { RESUME } from "~/constants";
 import CustomMDX from "~/components/mdx/mdx";
+import { api } from "~/trpc/server";
 
 const experienceCount = new Date().getFullYear() - 2020;
 
 export default async function Career() {
-  const source = "[T3 Stack](https://create.t3.gg/)";
+  const { source } = await api.markdown.careerPage();
+
   return (
     <div>
       <Heading>My Career</Heading>

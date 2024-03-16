@@ -7,7 +7,10 @@ type CustomHeadingProps = {
 };
 
 const CustomHeading = ({ children, level }: CustomHeadingProps) => {
-  const slug = slugify(children?.toString() ?? "");
+  const slug = slugify(children?.toString() ?? "", {
+    lower: true,
+    strict: true,
+  });
   return createElement(
     `h${level}`,
     { id: slug },
@@ -21,8 +24,6 @@ const CustomHeading = ({ children, level }: CustomHeadingProps) => {
     children,
   );
 };
-
-CustomHeading.displayName = "CustomHeading";
 
 export default function createHeading(level: number) {
   // eslint-disable-next-line react/display-name
