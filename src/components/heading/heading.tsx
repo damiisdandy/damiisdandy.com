@@ -17,7 +17,7 @@ export default function Heading({
     <h1
       className={clsx(
         IBMPlexSans.className,
-        "text-2xl font-bold text-neutral-50",
+        "text-3xl font-bold text-neutral-50",
         {
           "mb-3": !noMargin,
         },

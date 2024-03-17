@@ -4,10 +4,12 @@ import Link from "~/components/link/link";
 import GolangLogo from "~/assets/icons/golang.png";
 import PythonLogo from "~/assets/icons/python.png";
 import TypescriptLogo from "~/assets/icons/typescript.png";
+import myPicture from "~/assets/me.jpg";
 import ArrowIcon from "~/icons/arrowIcon";
 import { CALENDLY, EMAIL, TWITTER } from "~/constants";
 import Spotify from "~/components/spotify/spotify";
 import Heading from "~/components/heading/heading";
+import Image from "next/image";
 
 const CONTACT_LINKS: { description: string; url: string }[] = [
   {
@@ -27,22 +29,31 @@ const CONTACT_LINKS: { description: string; url: string }[] = [
 export default async function Home() {
   return (
     <main>
-      <header className="mb-12">
-        <Heading noMargin>Damilola Jerugba</Heading>
-        <h2>
-          Software Developer{" "}
-          <EmojiWrapper ariaLabel="high voltage">⚡</EmojiWrapper>
-        </h2>
+      <header className="mb-4 flex flex-col items-center justify-between gap-12 md:mb-12 md:flex-row">
+        <div className="order-2 md:order-1">
+          <Heading noMargin>Damilola Jerugba</Heading>
+          <h2 className="mb-3 text-neutral-400">
+            Software Developer{" "}
+            <EmojiWrapper ariaLabel="high voltage">⚡</EmojiWrapper>
+          </h2>
+          <article>
+            I am a software developer with a bachelor&apos;s degree in
+            Engineering. I mostly write{" "}
+            <Badge icon={TypescriptLogo}>Typescript</Badge>,{" "}
+            <Badge icon={PythonLogo}>Python</Badge>, and{" "}
+            <Badge icon={GolangLogo}>Go</Badge>. I love working at startups
+            where my impact can be shown quickly, psst! but I also don&apos;t
+            mind big tech (ex Reddit).
+          </article>
+        </div>
+        <Image
+          width={200}
+          height={200}
+          src={myPicture}
+          alt="Damilola Jerugba in Native wear"
+          className="order-1 w-48 rounded-full border-2 border-neutral-500 p-1 md:order-2"
+        />
       </header>
-      <article className="mb-4">
-        I am a software developer with a bachelor&apos;s degree in Engineering.
-        I mostly write <Badge icon={TypescriptLogo}>Typescript</Badge>,{" "}
-        <Badge icon={PythonLogo}>Python</Badge>, and{" "}
-        <Badge icon={GolangLogo}>Go</Badge>. I love working at startups where my
-        impact can be shown quickly, psst! but I also don&apos;t mind big tech
-        (ex Reddit).
-      </article>
-
       <article className="mb-4">
         Through my writing, I share my experiences and knowledge as a developer.
         one of my article on React was awarded as the best article of the week
