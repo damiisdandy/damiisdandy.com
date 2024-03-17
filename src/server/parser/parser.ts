@@ -1,9 +1,10 @@
 import fs from 'fs';
 
-type Metadata = {
+export type Metadata = {
   title: string;
   publishedAt: string;
   summary: string;
+  tags: string;
   image?: string;
   viewCount: number;
 };
@@ -16,6 +17,7 @@ export const parseMDX = (mdx: string, suppressFrontMatterRequired = false): { me
     publishedAt: '',
     summary: '',
     image: '',
+    tags: '',
   };
 
   const frontMatterRegex = /^---\n(.*?)\n---/s;
@@ -41,5 +43,12 @@ export const parseMDX = (mdx: string, suppressFrontMatterRequired = false): { me
 }
 
 export const readMDXFile = (path: string) => {
-  return fs.readFileSync(path, 'utf-8');
+  return new Promise<string>((resolve, reject) => {
+    fs.readFile(path, 'utf-8', (err, data) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(data);
+    });
+  });
 }
