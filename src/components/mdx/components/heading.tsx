@@ -33,12 +33,15 @@ const CustomHeading = ({ children, level }: CustomHeadingProps) => {
       className: `${IBMPlexSans.className} ${levelToSize[level]} font-semibold text-neutral-50`,
     },
     [
-      createElement("a", {
-        href: `#${slug}`,
-        key: `link-${slug}`,
-      }),
+      createElement(
+        "a",
+        {
+          href: `#${slug}`,
+          key: `link-${slug}`,
+        },
+        children,
+      ),
     ],
-    children,
   );
 };
 

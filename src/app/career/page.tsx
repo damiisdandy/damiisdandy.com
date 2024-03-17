@@ -11,7 +11,7 @@ const experienceCount = new Date().getFullYear() - 2020;
 
 const Tools = ({ tools }: { tools: string[] }) => {
   return (
-    <div className="mt-6 flex items-center gap-2">
+    <div className="mt-6 flex flex-wrap items-center gap-2">
       {tools.map((tool) => (
         <Badge key={tool}>{tool}</Badge>
       ))}
