@@ -2,6 +2,9 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { type ComponentProps } from "react";
 import Link from "./components/link";
 import createHeading from "./components/heading";
+import { UnorderedList, ListItem } from "./components/list";
+import HR from "./components/hr";
+import Badge from "../badge/badge";
 
 type MDXComponents = ComponentProps<typeof MDXRemote>["components"];
 type MDXSource = ComponentProps<typeof MDXRemote>["source"];
@@ -17,6 +20,10 @@ const DEFAULT_COMPONENTS: MDXComponents = {
   h3: createHeading(3),
   h4: createHeading(4),
   a: Link,
+  ul: UnorderedList,
+  li: ListItem,
+  Divider: HR,
+  Badge,
 };
 
 export default async function CustomMDX({ source, components }: MDXProps) {

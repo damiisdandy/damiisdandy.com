@@ -1,5 +1,11 @@
 import { type ReactNode, createElement } from "react";
 import slugify from "slugify";
+import { IBM_Plex_Sans } from "next/font/google";
+
+const IBMPlexSans = IBM_Plex_Sans({
+  weight: ["500", "600"],
+  subsets: ["latin"],
+});
 
 type CustomHeadingProps = {
   children: ReactNode;
@@ -11,14 +17,25 @@ const CustomHeading = ({ children, level }: CustomHeadingProps) => {
     lower: true,
     strict: true,
   });
+
+  const levelToSize = [
+    "text-4xl",
+    "text-3xl",
+    "text-2xl",
+    "text-xl",
+    "text-md",
+  ];
+
   return createElement(
     `h${level}`,
-    { id: slug },
+    {
+      id: slug,
+      className: `${IBMPlexSans.className} ${levelToSize[level]} font-semibold text-neutral-50`,
+    },
     [
       createElement("a", {
         href: `#${slug}`,
         key: `link-${slug}`,
-        className: "",
       }),
     ],
     children,

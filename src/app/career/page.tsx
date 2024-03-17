@@ -9,6 +9,16 @@ import { api } from "~/trpc/server";
 
 const experienceCount = new Date().getFullYear() - 2020;
 
+const Tools = ({ tools }: { tools: string[] }) => {
+  return (
+    <div className="mt-6 flex items-center gap-2">
+      {tools.map((tool) => (
+        <Badge key={tool}>{tool}</Badge>
+      ))}
+    </div>
+  );
+};
+
 export default async function Career() {
   const { source } = await api.markdown.careerPage();
 
@@ -27,7 +37,22 @@ export default async function Career() {
       </span>
       <hr className="my-8 border-neutral-500" />
 
-      <CustomMDX source={source} />
+      <CustomMDX
+        source={source}
+        components={{
+          h4: (props) => (
+            <h4 className="text-[15px] text-neutral-400">{props.children}</h4>
+          ),
+          Tools,
+        }}
+      />
     </div>
   );
 }
+
+export const metadata = {
+  title: "Damiisdandy | Career",
+  description:
+    "I am a software developer with 4+ years of experience, having worked with startups and larger tech companies like Reddit. I hold a first-class Mechanical Engineering degree and am passionate about learning and building.",
+  icons: [{ rel: "icon", url: "/favicon.ico" }],
+};

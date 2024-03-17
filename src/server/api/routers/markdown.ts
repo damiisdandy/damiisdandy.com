@@ -6,8 +6,6 @@ import { parseMDX, readMDXFile } from "~/server/parser/parser";
 
 const contentPath = path.join(process.cwd(), 'src', 'content');
 
-console.log(contentPath)
-
 export const markdownRouter = createTRPCRouter({
   careerPage: publicProcedure
     .query(() => {
