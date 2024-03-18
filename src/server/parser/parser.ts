@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 
 export type Metadata = {
   title: string;
@@ -36,15 +37,16 @@ export const parseMDX = (mdx: string, suppressFrontMatterRequired = false): { me
       const rawValue = value.replace(/^['"](.*)['"]$/, '$1'); // Remove quotes
       metadata[key!.trim() as keyof FrontMatter] = rawValue;
     });
-    return { metadata, source };
+    return { metadata, source: source.trim() };
   } else {
     return { metadata, source: mdx };
   }
 }
 
-export const readMDXFile = (path: string) => {
+export const readMDXFile = (filePath: string) => {
+  const contentPath = path.join(process.cwd(), 'src', 'content', filePath);
   return new Promise<string>((resolve, reject) => {
-    fs.readFile(path, 'utf-8', (err, data) => {
+    fs.readFile(contentPath, 'utf-8', (err, data) => {
       if (err) {
         reject(err);
       }
