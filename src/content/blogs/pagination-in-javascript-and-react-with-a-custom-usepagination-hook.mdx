@@ -33,7 +33,7 @@ Calculating the content per page is rather easy, but how do we display certain c
 For example, let's say we have an array called `scouts` and we want to select only a portion of this array based on the array's index.
 
 ```javascript
-const scouts = ['levi', 'hange', 'erwin', 'petra', 'oruo', 'miche'];
+const scouts = ["levi", "hange", "erwin", "petra", "oruo", "miche"];
 scouts.slice(2, 5);
 // output: [ 'erwin', 'petra', 'oruo' ]
 scouts.slice(1, 3);
@@ -211,11 +211,11 @@ Below is a simple functionality to help us generate our buttons, then we add the
     &larr;
   </button>
   {/* @ts-ignore */}
-  {[...Array(totalPages).keys()].map(el => (
+  {[...Array(totalPages).keys()].map((el) => (
     <button
       onClick={() => setPage(el + 1)}
       key={el}
-      className={`page ${page === el + 1 ? 'active' : ''}`}
+      className={`page ${page === el + 1 ? "active" : ""}`}
     >
       {el + 1}
     </button>
