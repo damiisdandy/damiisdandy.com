@@ -12,6 +12,7 @@ describe('Should parser frontmatter', () => {
       summary: 'Example Summary',
       tags: 'React, Javascript, Typescript, Pagination, Hooks, Tutorial',
       image: 'https://example.com/image.jpg',
+      type: 'project'
     });
 
     expect(source).toEqual('Content Goes Here');

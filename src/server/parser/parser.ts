@@ -8,6 +8,7 @@ export type Metadata = {
   tags: string;
   image?: string;
   viewCount: number;
+  type: string;
 };
 
 type FrontMatter = Omit<Metadata, 'viewCount'>;
@@ -19,6 +20,7 @@ export const parseMDX = (mdx: string, suppressFrontMatterRequired = false): { me
     summary: '',
     image: '',
     tags: '',
+    type: 'post',
   };
 
   const frontMatterRegex = /^---\n(.*?)\n---/s;
