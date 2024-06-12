@@ -1,6 +1,7 @@
 import Badge from "~/components/badge/badge";
 import EmojiWrapper from "~/components/emoji-wrapper/emoji-wrapper";
 import Link from "~/components/link/link";
+import Respositories from "~/components/repositories/respositories";
 import GolangLogo from "~/assets/icons/golang.png";
 import PythonLogo from "~/assets/icons/python.png";
 import TypescriptLogo from "~/assets/icons/typescript.png";
@@ -24,6 +25,12 @@ const CONTACT_LINKS: { description: string; url: string }[] = [
     description: "Follow me",
     url: TWITTER,
   },
+];
+const FEATURED_REPOS = [
+  "use-pagination",
+  "linux-pretty-tree",
+  "playlist-converter-api",
+  "snake-game",
 ];
 
 export default async function Home() {
@@ -95,6 +102,11 @@ export default async function Home() {
       <section className="mt-12">
         <Heading>What I&apos;m listening to</Heading>
         <Spotify />
+      </section>
+
+      <section className="mt-12">
+        <Heading>Featured Repos</Heading>
+        <Respositories repos={FEATURED_REPOS} />
       </section>
     </main>
   );
