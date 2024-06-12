@@ -1,9 +1,14 @@
 import CustomMDX from "~/components/mdx/mdx";
 import { api } from "~/trpc/server";
-import { generatePostSEOMetadata, type BlogBySlugProps } from "~/utils/utils";
+import {
+  estimateReadingTime,
+  generatePostSEOMetadata,
+  type BlogBySlugProps,
+} from "~/utils/utils";
 import { IBM_Plex_Sans } from "next/font/google";
 import dayjs from "dayjs";
 import Badge from "~/components/badge/badge";
+import Image from "next/image";
 
 const IBMPlexSans = IBM_Plex_Sans({ weight: ["700"], subsets: ["latin"] });
 
@@ -16,7 +21,7 @@ export default async function BlogBySlug(props: BlogBySlugProps) {
     props.params.slug,
   );
 
-  const { title, publishedAt, tags, viewCount } = metadata;
+  const { title, publishedAt, tags } = metadata;
 
   return (
     <div>
@@ -27,14 +32,23 @@ export default async function BlogBySlug(props: BlogBySlugProps) {
       </h1>
       <div className="md:text-md mt-3 flex items-center justify-between text-sm text-neutral-400">
         <span>{dayjs(publishedAt).format("MMMM D, YYYY")}</span>
-        <span>{viewCount.toLocaleString()} views</span>
+        <span>{estimateReadingTime(source)} min read</span>
       </div>
       <div className="mt-3 flex flex-wrap items-center gap-2">
         {tags.map((tag) => (
           <Badge key={tag}>{tag}</Badge>
         ))}
       </div>
-      <div className="mt-7 md:mt-12">
+      {metadata.image && (
+        <Image
+          className="my-6 rounded-lg"
+          src={metadata.image}
+          alt={title}
+          width={1200}
+          height={630}
+        />
+      )}
+      <div>
         <CustomMDX source={source} />
       </div>
     </div>

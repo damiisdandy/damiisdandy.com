@@ -7,3 +7,47 @@ html {
   scrollbare-width: thin;
   color-scheme: dark;
 }
+
+:root {
+  --sh-class: #4c97f8;
+  --sh-identifier: white;
+  --sh-keyword: #f47067;
+  --sh-string: #0fa295;
+
+  --sh-sign: #8996a3;
+  --sh-comment: #a19595;
+  --sh-jsxliterals: #6266d1;
+  --sh-property: #e25a1c;
+  --sh-entity: #e25a1c;
+}
+
+pre {
+  @apply overflow-x-auto rounded-lg bg-neutral-800;
+}
+
+code {
+  @apply rounded-lg px-1 py-0.5;
+}
+
+.sh__line {
+  @apply rounded-sm bg-neutral-800 px-1 text-sm;
+}
+
+pre code {
+  @apply p-0;
+  border: initial;
+  line-height: 1.5;
+}
+
+code span {
+  @apply font-medium;
+}
+
+pre::-webkit-scrollbar {
+  display: none;
+}
+
+pre {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

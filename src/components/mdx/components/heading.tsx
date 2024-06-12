@@ -30,7 +30,7 @@ const CustomHeading = ({ children, level }: CustomHeadingProps) => {
     `h${level}`,
     {
       id: slug,
-      className: `${IBMPlexSans.className} ${levelToSize[level]} font-semibold text-neutral-50`,
+      className: `${IBMPlexSans.className} ${levelToSize[level]} font-semibold my-2 text-neutral-50`,
     },
     [
       createElement(

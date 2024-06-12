@@ -5,6 +5,8 @@ import createHeading from "./components/heading";
 import { UnorderedList, ListItem } from "./components/list";
 import HR from "./components/hr";
 import Badge from "../badge/badge";
+import Img from "./components/img";
+import Code from "./components/code";
 
 type MDXComponents = ComponentProps<typeof MDXRemote>["components"];
 type MDXSource = ComponentProps<typeof MDXRemote>["source"];
@@ -19,11 +21,13 @@ const DEFAULT_COMPONENTS: MDXComponents = {
   h2: createHeading(2),
   h3: createHeading(3),
   h4: createHeading(4),
+  img: Img,
   a: Link,
   ul: UnorderedList,
   li: ListItem,
   Divider: HR,
   Badge,
+  code: Code,
 };
 
 export default async function CustomMDX({ source, components }: MDXProps) {
