@@ -1,17 +1,18 @@
 import { type Metadata } from "next";
 import { api } from "~/trpc/server";
 
-export type BlogBySlugProps = {
-  params: {
-    slug: string;
-  };
-};
 
 export function getBaseUrl() {
   if (process.env.BASE_URL) return `https://${process.env.BASE_URL}`;
   if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
   return `http://localhost:${process.env.PORT ?? 3000}`;
 }
+
+export type BlogBySlugProps = {
+  params: {
+    slug: string;
+  };
+};
 
 export const generatePostSEOMetadata = async (
   args: BlogBySlugProps,

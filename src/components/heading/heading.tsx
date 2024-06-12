@@ -4,7 +4,10 @@ import { type ReactNode } from "react";
 import clsx from "clsx";
 import { IBM_Plex_Sans } from "next/font/google";
 
-const IBMPlexSans = IBM_Plex_Sans({ weight: ["600"], subsets: ["latin"] });
+const IBMPlexSans = IBM_Plex_Sans({
+  weight: ["600"],
+  subsets: ["latin"],
+});
 
 export default function Heading({
   children,

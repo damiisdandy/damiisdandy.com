@@ -1,6 +1,7 @@
 import "~/styles/globals.css";
 
 import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 
 import { TRPCReactProvider } from "~/trpc/react";
 import Navbar from "~/components/navbar/navbar";
@@ -24,7 +25,7 @@ export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
       <body
-        className={`font-sans ${GeistSans.className} leading bg-neutral-900 p-5 text-neutral-300`}
+        className={`font-sans ${GeistSans.variable} ${GeistMono.variable} leading bg-neutral-900 p-5 text-neutral-300`}
       >
         <TRPCReactProvider>
           <Container>{children}</Container>
