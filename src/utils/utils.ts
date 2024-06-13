@@ -27,11 +27,6 @@ export const generatePostSEOMetadata = async (
 
   const ogImage = `${getBaseUrl()}${image ?? `/og?title=${title}`}`;
 
-  console.log({
-    image,
-    ogImage,
-  });
-
   return {
     title,
     description: summary,

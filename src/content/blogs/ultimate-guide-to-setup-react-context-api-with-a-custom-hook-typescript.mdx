@@ -7,25 +7,20 @@ tags: React, Typescript, Context API, Custom Hook, Tutorial
 type: post
 ---
 
-This is a guide to help you set up React Context API with typescript.
+This is a guide to help you set up React Context API with Typescript.
 
-## 🤨 What is React Context API?
+## What is React Context API?
 
 Context is designed to share data that can be considered “global” for a tree of React components, This prevents [Prop drilling](https://kentcdodds.com/blog/prop-drilling) and allows you to pass data around your react component tree efficiently.
-
 There are external libraries like [Redux](https://kentcdodds.com/blog/prop-drilling) that help with this, but luckily react implemented a built-in feature called [React Context API](https://reactjs.org/docs/context.html) that does this perfectly.
-
-Let's dive in! 😁
+Let's dive in!
 
 ## Setup 🛠
-
 To set up the project we need to first create a `create-react-app` application with the typescript template, To do this open up a terminal window and run the command
 
-```
+```bash
 npx create-react-app context-typescript --template typescript
-
 # or
-
 yarn create react-app context-typescript --template typescript
 ```
 
@@ -36,7 +31,7 @@ Open the `context-typescript` directory in your favorite text editor like VS cod
 
 or simply run the commands
 
-```
+```bash
 cd context-typescript/src
 rm App.css App.test.tsx
 ```
@@ -55,7 +50,7 @@ function App() {
 export default App;
 ```
 
-## Declaring the Interfaces and types we'll use 🧩
+## Declaring the Interfaces and types we'll use
 
 Within the `react-app-env.d.ts` file we'll declare the [Interface](https://www.typescriptlang.org/docs/handbook/2/objects.html) for our global state, We will be building a To-do application in this example to illustrate the use of the context API.
 
@@ -74,7 +69,7 @@ interface State {
 }
 ```
 
-## Creating Our Context 🌴
+## Creating Our Context
 
 Create a folder in the `src` directory called `context` within it create two files called `index.tsx` and `reducer.ts`.
 
@@ -89,7 +84,6 @@ touch index.tsx reducer.ts
 ```
 
 Within the `index.tsx` we'll create our context, global context provider, and our custom hook. In the `reducer.ts` we'll create our reducer function.
-
 Open up the `index.tsx` type the following
 
 ```javascript
@@ -124,9 +118,7 @@ const initialState: State = {
 ```
 
 We simply just imported all that we'll be using in the file and initiated our initial state. Notice how we used the `State` interface.
-
 Before we create our Context let's first declare the `Interface` and `type` we'll be using for our context.
-
 Within the `react-app-env.d.ts` file add the following lines of code.
 
 ```javascript
@@ -142,7 +134,6 @@ interface Action {
 ```
 
 We've just declared the `Action` interface and its respective types (`ActionTypes`)
-
 Now we can create our context, Add the following lines of code underneath the initial state we just declared in the `index.tsx`
 
 ```javascript
@@ -161,7 +152,7 @@ const globalContext = createContext<{
 
 We've already imported the `createContext` function and `Dispatch` interface, we also implemented our `Action` interface, and set the initial state to our `initialState`
 
-## Creating the Reducer 📦
+## Creating the Reducer
 
 Before we create the reducer function lets the `Type` for our reducer function within the `react-app-env.d.ts` file
 
@@ -173,7 +164,6 @@ type ReducerType = (state: State, action: Action) => State;
 ```
 
 This is simply a function that takes in the `State` and `Action` and returns the `State`.
-
 Within the `reducer.ts` file, copy the function below.
 
 ```javascript
@@ -227,13 +217,11 @@ const reducer: ReducerType = (state, action) => {
 export default reducer;
 ```
 
-Based on the `ActionTypes` type we previously initialized, we are using for the `switch` statement's `action.type`
-
+Based on the `ActionTypes` type we previously initialized, we are using for the `switch` statement's `action.type`.
 Because we are using Typescript our text editor or IDE helps us with IntelliSense for the action types.
-
 ![typescript intelliSense](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/q36917so0a8ri7u5uhfz.png)
 
-## Creating the Global Provider 🌐
+## Creating the Global Provider
 
 Within the `index.tsx` file we'll import the reducer function we just created.
 
@@ -272,7 +260,6 @@ export const GlobalContextProvider = ({
 
 We've previously imported `ReactNode` and `useReducer`.
 The `Provider` property is gotten from our previously created `globalContext`, We also added in the parameters `reducer` and `initialState` inside the `useReducer` hook, _(psst! picture `useReduer` as `useState` on steroids 💪)_. The `children` prop is simply the direct child component of `GlobalContextProvider` (our entire app).
-
 Now we simply just wrap the `GlobalContextProvider` around our root component within the `src/index.tsx` file
 
 Your code should look like this
@@ -302,33 +289,29 @@ ReactDOM.render(
 reportWebVitals();
 ```
 
-## Custom Hook 📎
+## Custom Hook
 
 We are going to create a hook that lets us access our global state and dispatch function anywhere in our component tree (react app).
-
 Before we do that let's create its `Type`, this is useful because it lets us use the power of Typescript.
-
 We'll declare this within the `react-app-env.d.ts` file like we always have.
 
 ```javascript
 // react-app-env.d.ts
-
 ...
 type ContextHook = () => {
     state: State,
     dispatch: (action: Action) => void;
 }
+...
+
 ```
 
 This is a function that simply returns an object that contains our global state and dispatch function.
-
 Now we create the hook within the `src/context/index.tsx` file
 
 ```javascript
 // src/context/index.tsx
-
 ...
-// Custom context hook
 export const useGlobalContext: ContextHook = () => {
   const { state, dispatch } = useContext(globalContext);
   return { state, dispatch };
@@ -338,7 +321,6 @@ export const useGlobalContext: ContextHook = () => {
 We previously imported the `useContext` hook, which takes in our `globalContext`.
 
 ## Using our custom hook
-
 Within the `App.tsx` file we'll import the `useGlobalContext` hook we just created.
 
 ```javascript
@@ -356,11 +338,9 @@ export default App;
 ```
 
 With the power of typescript, we have IntelliSense to help us out.
-
 ![typescript intelliSense](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/6nti2onhratkysign8l5.png)
-
 ![typescript intelliSense](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/1kzx1z33eoomnurisjxy.png)
 
-That's all for this tutorial 🎉, This is my first article 😅, feedback will be nice, Be sure to comment down below if you have any questions, additions, or subtractions.
+That's all for this tutorial 🎉, This is my first article 😅.
 
-The full source code to with project with a functioning todo application is linked below 👇👇
+<RepositoryCard name="context-api-typescript" />

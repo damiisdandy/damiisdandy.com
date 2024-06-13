@@ -7,6 +7,8 @@ import HR from "./components/hr";
 import Badge from "../badge/badge";
 import Img from "./components/img";
 import Code from "./components/code";
+import BlockQuote from "./components/block-quote";
+import Deprecated from "./components/deprecated";
 
 type MDXComponents = ComponentProps<typeof MDXRemote>["components"];
 type MDXSource = ComponentProps<typeof MDXRemote>["source"];
@@ -28,6 +30,8 @@ const DEFAULT_COMPONENTS: MDXComponents = {
   Divider: HR,
   Badge,
   code: Code,
+  Deprecated: Deprecated,
+  blockquote: BlockQuote,
 };
 
 export default async function CustomMDX({ source, components }: MDXProps) {

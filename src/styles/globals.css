@@ -25,10 +25,18 @@ code {
   @apply inline-flex items-center rounded-md bg-neutral-700 px-1 py-0 text-[15px] text-neutral-200;
 }
 
+h2 code {
+  @apply text-[19px];
+}
+
 pre {
-  @apply my-6 rounded-md bg-neutral-950 p-3;
+  @apply my-6 overflow-x-auto overflow-y-hidden rounded-md bg-neutral-950 p-3;
 }
 
 .mdx {
   line-height: 1.75;
+}
+
+pre code.language-bash span {
+  color: #aaa !important;
 }

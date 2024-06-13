@@ -1,3 +1,3 @@
 export default function Projects() {
-  return "coming soon!";
+  return "Page under construction";
 }
