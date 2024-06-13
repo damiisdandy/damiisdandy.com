@@ -16,8 +16,8 @@ permissions:
 jobs:
   main:
     runs-on: ubuntu-latest
-    
     steps:
+      - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v3
       - uses: actions/setup-node@v4
         with:
@@ -35,6 +35,9 @@ jobs:
 
       - name: Typecheck
         run: pnpm type-check
+      
+      - name: Test
+        run: pnpm test
       
       - name: Build app
         run: pnpm build
