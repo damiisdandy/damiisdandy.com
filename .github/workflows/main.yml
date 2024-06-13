@@ -1,0 +1,41 @@
+name: Prettier and Typecheck
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  issues: write
+  discussions: write
+  statuses: write
+  pull-requests: write
+  contents: read
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Prettier
+        run: pnpm prettier:check
+
+      - name: Linting
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm type-check
+      
+      - name: Build app
+        run: pnpm build
