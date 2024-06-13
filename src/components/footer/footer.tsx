@@ -1,4 +1,4 @@
-import { GITHUB, TWITTER } from "~/constants";
+import { GITHUB, LINKEDIN, TWITTER } from "~/constants";
 import ArrowIcon from "~/icons/arrowIcon";
 
 const getYear = () => new Date().getFullYear();
@@ -13,7 +13,10 @@ export default function Footer() {
           <span>
             Follow me on{" "}
             <a className="underline" target="_blank" href={TWITTER}>
-              Twitter
+              Twitter,
+            </a>{" "}
+            <a className="underline" target="_blank" href={LINKEDIN}>
+              Linkedin
             </a>{" "}
             and{" "}
             <a className="underline" target="_blank" href={GITHUB}>
