@@ -25,7 +25,7 @@ export const generatePostSEOMetadata = async (
 
   const urlDir = type === "post" ? "blog" : "projects";
 
-  const ogImage = `${getBaseUrl()}${image ?? `/og?title=${title}`}`;
+  const ogImage = `${getBaseUrl()}${image}`;
 
   return {
     title,

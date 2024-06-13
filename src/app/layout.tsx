@@ -6,6 +6,7 @@ import { GeistMono } from "geist/font/mono";
 import { TRPCReactProvider } from "~/trpc/react";
 import Navbar from "~/components/navbar/navbar";
 import Footer from "~/components/footer/footer";
+import { type Metadata } from "next";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -35,8 +36,35 @@ export default function RootLayout({ children }: LayoutProps) {
   );
 }
 
-export const metadata = {
-  title: "Damiisdandy",
-  description: "A Developer with a bachelor's degree in Engineering",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
+export const metadata: Metadata = {
+  metadataBase: new URL("https://damiisdandy.com"),
+  title: {
+    default: "Damilola Jerugba",
+    template: "%s | Damilola Jerugba",
+  },
+  description: "Developer with a bachelor's degree in Mechanical Engineering.",
+  openGraph: {
+    title: "Damilola Jerugba",
+    description:
+      "Developer with a bachelor's degree in Mechanical Engineering.",
+    url: "https://damiisdandy.com",
+    siteName: "Damilola Jerugba",
+    locale: "en_US",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  twitter: {
+    title: "Damilola Jerugba",
+    card: "summary_large_image",
+  },
 };

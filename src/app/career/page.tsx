@@ -6,8 +6,14 @@ import Link from "~/components/link/link";
 import { RESUME } from "~/constants";
 import CustomMDX from "~/components/mdx/mdx";
 import { api } from "~/trpc/server";
+import { type Metadata } from "next";
 
-const experienceCount = new Date().getFullYear() - 2020;
+export const metadata: Metadata = {
+  title: "Career",
+  description: "My experience and skills",
+};
+
+const experienceCount = new Date().getFullYear() - 2021;
 
 const Tools = ({ tools }: { tools: string[] }) => {
   return (
@@ -49,10 +55,3 @@ export default async function Career() {
     </div>
   );
 }
-
-export const metadata = {
-  title: "Damiisdandy | Career",
-  description:
-    "I am a software developer with 4+ years of experience, having worked with startups and larger tech companies like Reddit. I hold a first-class Mechanical Engineering degree and am passionate about learning and building.",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
-};
