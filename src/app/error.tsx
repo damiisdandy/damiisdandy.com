@@ -4,9 +4,11 @@ import Image from "next/image";
 import { useEffect } from "react";
 import { EMAIL } from "~/constants";
 import errorImg from "~/assets/error.webp";
+import posthog from "posthog-js";
 
 export default function Error({ error }: { error: Error }) {
   useEffect(() => {
+    posthog.capture("error", { property: error.message });
     console.error(error);
   }, [error]);
 

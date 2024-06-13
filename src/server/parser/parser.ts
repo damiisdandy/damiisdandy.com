@@ -60,8 +60,14 @@ export const readMDXFile = (filePath: string) => {
   });
 };
 
-export const getAllFilesInDir = (dirPath: string, fileList: string[] = [], fullPath = false) => {
-  const contentPath = fullPath ? dirPath : path.join(process.cwd(), "src", "content", dirPath);
+export const getAllFilesInDir = (
+  dirPath: string,
+  fileList: string[] = [],
+  fullPath = false,
+) => {
+  const contentPath = fullPath
+    ? dirPath
+    : path.join(process.cwd(), "src", "content", dirPath);
   const files = fs.readdirSync(contentPath);
   files.forEach((file) => {
     const filePath = path.join(contentPath, file);
@@ -70,6 +76,6 @@ export const getAllFilesInDir = (dirPath: string, fileList: string[] = [], fullP
     } else {
       fileList.push(filePath);
     }
-  })
+  });
   return fileList;
-}
+};

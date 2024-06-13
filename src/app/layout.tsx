@@ -7,6 +7,7 @@ import { TRPCReactProvider } from "~/trpc/react";
 import Navbar from "~/components/navbar/navbar";
 import Footer from "~/components/footer/footer";
 import { type Metadata } from "next";
+import { PHProvider } from "./provider";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -25,13 +26,15 @@ const Container = ({ children }: LayoutProps) => {
 export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
-      <body
-        className={`font-sans ${GeistSans.variable} ${GeistMono.variable} leading bg-neutral-900 p-5 text-neutral-300`}
-      >
-        <TRPCReactProvider>
-          <Container>{children}</Container>
-        </TRPCReactProvider>
-      </body>
+      <PHProvider>
+        <body
+          className={`font-sans ${GeistSans.variable} ${GeistMono.variable} leading bg-neutral-900 p-5 text-neutral-300`}
+        >
+          <TRPCReactProvider>
+            <Container>{children}</Container>
+          </TRPCReactProvider>
+        </body>
+      </PHProvider>
     </html>
   );
 }

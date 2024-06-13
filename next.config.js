@@ -1,16 +1,12 @@
-/**
- * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially useful
- * for Docker builds.
- */
-await import("./src/env.js");
-
 /** @type {import("next").NextConfig} */
 const config = {
   images: {
-    remotePatterns: [{
-      hostname: "dev-to-uploads.s3.amazonaws.com"
-    }]
-  }
+    remotePatterns: [
+      {
+        hostname: "dev-to-uploads.s3.amazonaws.com",
+      },
+    ],
+  },
 };
 
 export default config;
