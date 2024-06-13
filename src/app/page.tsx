@@ -1,7 +1,7 @@
 import Badge from "~/components/badge/badge";
 import EmojiWrapper from "~/components/emoji-wrapper/emoji-wrapper";
 import Link from "~/components/link/link";
-import Respositories from "~/components/repositories/respositories";
+import { RepositoryCard } from "~/components/repositories/respositories";
 import GolangLogo from "~/assets/icons/golang.png";
 import PythonLogo from "~/assets/icons/python.png";
 import TypescriptLogo from "~/assets/icons/typescript.png";
@@ -118,7 +118,11 @@ export default async function Home() {
 
       <section className="mt-12">
         <Heading>Featured Repos</Heading>
-        <Respositories repos={FEATURED_REPOS} />
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          {FEATURED_REPOS.map((repo) => (
+            <RepositoryCard key={repo} name={repo} />
+          ))}
+        </div>
       </section>
     </main>
   );

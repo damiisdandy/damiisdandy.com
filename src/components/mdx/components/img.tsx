@@ -13,7 +13,7 @@ export default function Img(
       alt={props.alt ?? ""}
       width={600}
       height={600}
-      className="my-4 w-full rounded-md"
+      className="my-6 w-full rounded-md"
     />
   );
 }

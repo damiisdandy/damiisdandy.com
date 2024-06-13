@@ -1,4 +1,5 @@
 import CustomMDX from "~/components/mdx/mdx";
+import { RepositoryCard } from "~/components/repositories/respositories";
 import { api } from "~/trpc/server";
 import {
   estimateReadingTime,
@@ -49,7 +50,16 @@ export default async function BlogBySlug(props: BlogBySlugProps) {
         />
       )}
       <div>
-        <CustomMDX source={source} />
+        <CustomMDX
+          source={source}
+          components={{
+            RepositoryCard: ({ name }: { name: string }) => (
+              <div className="mt-8">
+                <RepositoryCard name={name} />
+              </div>
+            ),
+          }}
+        />
       </div>
     </div>
   );

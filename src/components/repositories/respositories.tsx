@@ -12,39 +12,40 @@ type Repository = {
   stargazers_count: number;
 };
 
-const fetchRepositories = async (repos: string[]) => {
-  const reposPromises = repos.map((repo) =>
-    fetch(`https://api.github.com/repos/damiisdandy/${repo}`).then(
-      (res) => res.json() as Promise<Repository>,
-    ),
+const fetchRepo = async (repo: string) => {
+  return fetch(`https://api.github.com/repos/damiisdandy/${repo}`).then(
+    (res) => res.json() as Promise<Partial<Repository>>,
   );
-  return Promise.all(reposPromises);
 };
 
-type Props = {
-  repos: string[];
-};
+export const RepositoryCard = ({ name }: { name: string }) => {
+  const { data, error } = useQuery({
+    queryKey: ["repositories", name],
+    queryFn: () => fetchRepo(name),
+  });
 
-const RepostoryCard = ({ repo }: { repo: Repository }) => {
+  if (!data || error)
+    return <div className="h-44 animate-pulse rounded-md bg-neutral-800"></div>;
+
   return (
     <div className="rounded-md bg-neutral-800 p-5">
       <p className="flex items-center gap-2 text-sm text-neutral-400">
         <span>
           <Github size={15} />
         </span>
-        {repo.full_name}
+        {data.full_name ?? "not-found"}
       </p>
-      <p className="mt-2 text-white">{repo.name}</p>
+      <p className="mt-2 text-white">{data.name}</p>
       <p className="mt-1 truncate text-sm text-neutral-400">
-        {repo.description}
+        {data.description ?? "problem fetching repo "}
       </p>
       <div className="mt-5 flex items-center justify-between">
         <p className="mt-2 flex items-center gap-1.5 text-sm text-neutral-400">
           <Star size={15} />
-          {repo.stargazers_count.toLocaleString()}
+          {data?.stargazers_count?.toLocaleString() ?? "0"}
         </p>
         <a
-          href={repo.html_url}
+          href={data.html_url}
           target="_blank"
           className="rounded-[5px] bg-yellow-500 px-3 py-1 text-sm font-semibold text-stone-800"
         >
@@ -54,27 +55,3 @@ const RepostoryCard = ({ repo }: { repo: Repository }) => {
     </div>
   );
 };
-
-export default function Repositories({ repos }: Props) {
-  const { data, error } = useQuery({
-    queryKey: ["repositories"],
-    queryFn: () => fetchRepositories(repos),
-  });
-
-  if (error) return <div>Error!</div>;
-
-  return (
-    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-      {!data && !error ? (
-        <>
-          <div className="h-44 animate-pulse rounded-md bg-neutral-800"></div>
-          <div className="h-44 animate-pulse rounded-md bg-neutral-800"></div>
-          <div className="h-44 animate-pulse rounded-md bg-neutral-800"></div>
-          <div className="h-44 animate-pulse rounded-md bg-neutral-800"></div>
-        </>
-      ) : (
-        data?.map((repo) => <RepostoryCard key={repo.id} repo={repo} />)
-      )}
-    </div>
-  );
-}
