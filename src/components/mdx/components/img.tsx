@@ -11,8 +11,8 @@ export default function Img(
     <Image
       src={props.src ?? ""}
       alt={props.alt ?? ""}
-      width={700}
-      height={700}
+      width={600}
+      height={600}
       className="my-4 w-full rounded-md"
     />
   );

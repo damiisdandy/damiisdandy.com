@@ -11,6 +11,8 @@ import { CALENDLY, EMAIL, TWITTER } from "~/constants";
 import Spotify from "~/components/spotify/spotify";
 import Heading from "~/components/heading/heading";
 import Image from "next/image";
+import { api } from "~/trpc/server";
+import BlogItem from "~/components/blog-item/blog-item";
 
 const CONTACT_LINKS: { description: string; url: string }[] = [
   {
@@ -34,6 +36,7 @@ const FEATURED_REPOS = [
 ];
 
 export default async function Home() {
+  const blogs = await api.markdown.getBlogs({ limit: 3 });
   return (
     <main>
       <header className="mb-4 flex flex-col items-center justify-between gap-12 md:mb-12 md:flex-row">
@@ -48,9 +51,9 @@ export default async function Home() {
             Engineering. I mostly write{" "}
             <Badge icon={TypescriptLogo}>Typescript</Badge>,{" "}
             <Badge icon={PythonLogo}>Python</Badge>, and{" "}
-            <Badge icon={GolangLogo}>Go</Badge>. I love working at startups
-            where my impact can be shown quickly, psst! but I also don&apos;t
-            mind big tech (ex Reddit).
+            <Badge icon={GolangLogo}>Go</Badge>. I have a proven track record of
+            building scalable applications at both startups and large tech
+            companies.
           </article>
         </div>
         <Image
@@ -102,6 +105,15 @@ export default async function Home() {
       <section className="mt-12">
         <Heading>What I&apos;m listening to</Heading>
         <Spotify />
+      </section>
+
+      <section className="mt-12">
+        <Heading>Recent Blogs</Heading>
+        <div className="space-y-10">
+          {blogs.map((blog) => (
+            <BlogItem key={blog.slug} {...blog} />
+          ))}
+        </div>
       </section>
 
       <section className="mt-12">

@@ -32,12 +32,14 @@ const DEFAULT_COMPONENTS: MDXComponents = {
 
 export default async function CustomMDX({ source, components }: MDXProps) {
   return (
-    <MDXRemote
-      source={source}
-      components={{
-        ...DEFAULT_COMPONENTS,
-        ...components,
-      }}
-    />
+    <div className="mdx">
+      <MDXRemote
+        source={source}
+        components={{
+          ...DEFAULT_COMPONENTS,
+          ...components,
+        }}
+      />
+    </div>
   );
 }

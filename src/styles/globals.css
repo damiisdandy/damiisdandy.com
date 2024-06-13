@@ -8,46 +8,27 @@ html {
   color-scheme: dark;
 }
 
-:root {
-  --sh-class: #4c97f8;
-  --sh-identifier: white;
-  --sh-keyword: #f47067;
-  --sh-string: #0fa295;
-
-  --sh-sign: #8996a3;
-  --sh-comment: #a19595;
-  --sh-jsxliterals: #6266d1;
-  --sh-property: #e25a1c;
-  --sh-entity: #e25a1c;
-}
-
-pre {
-  @apply overflow-x-auto rounded-lg bg-neutral-800;
+pre code {
+  @apply inline-block bg-transparent;
+  --sh-class: #f7a04c;
+  --sh-identifier: #df206e;
+  --sh-sign: #ddd;
+  --sh-property: #0ca5a7;
+  --sh-entity: #eb5050;
+  --sh-jsxliterals: #ccc;
+  --sh-string: #f7b982;
+  --sh-keyword: #cd67ba;
+  --sh-comment: #777;
 }
 
 code {
-  @apply rounded-lg px-1 py-0.5;
-}
-
-.sh__line {
-  @apply rounded-sm bg-neutral-800 px-1 text-sm;
-}
-
-pre code {
-  @apply p-0;
-  border: initial;
-  line-height: 1.5;
-}
-
-code span {
-  @apply font-medium;
-}
-
-pre::-webkit-scrollbar {
-  display: none;
+  @apply inline-flex items-center rounded-md bg-neutral-700 px-1 py-0 text-[15px] text-neutral-200;
 }
 
 pre {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  @apply my-6 rounded-md bg-neutral-950 p-3;
+}
+
+.mdx {
+  line-height: 1.75;
 }
