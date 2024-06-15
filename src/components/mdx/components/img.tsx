@@ -11,6 +11,7 @@ export default function Img(
     <Image
       src={props.src ?? ""}
       alt={props.alt ?? ""}
+      unoptimized
       width={600}
       height={600}
       className="my-6 w-full rounded-md"

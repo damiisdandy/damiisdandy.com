@@ -10,6 +10,7 @@ import { IBM_Plex_Sans } from "next/font/google";
 import dayjs from "dayjs";
 import Badge from "~/components/badge/badge";
 import Image from "next/image";
+import { PLACE_HOLDER_IMAGE } from "~/constants";
 
 const IBMPlexSans = IBM_Plex_Sans({ weight: ["700"], subsets: ["latin"] });
 
@@ -42,8 +43,10 @@ export default async function BlogBySlug(props: BlogBySlugProps) {
       </div>
       {metadata.image && (
         <Image
-          className="my-6 rounded-lg"
+          className="my-6 rounded-lg object-cover"
           src={metadata.image}
+          blurDataURL={PLACE_HOLDER_IMAGE}
+          placeholder="blur"
           alt={title}
           width={1200}
           height={630}

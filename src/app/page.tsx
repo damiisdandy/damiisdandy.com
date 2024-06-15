@@ -7,7 +7,7 @@ import PythonLogo from "~/assets/icons/python.png";
 import TypescriptLogo from "~/assets/icons/typescript.png";
 import myPicture from "~/assets/me.jpg";
 import ArrowIcon from "~/icons/arrowIcon";
-import { CALENDLY, EMAIL, TWITTER } from "~/constants";
+import { CALENDLY, EMAIL, LINKEDIN } from "~/constants";
 import Spotify from "~/components/spotify/spotify";
 import Heading from "~/components/heading/heading";
 import Image from "next/image";
@@ -24,8 +24,8 @@ const CONTACT_LINKS: { description: string; url: string }[] = [
     url: CALENDLY,
   },
   {
-    description: "Follow me",
-    url: TWITTER,
+    description: "Connect with me",
+    url: LINKEDIN,
   },
 ];
 const FEATURED_REPOS = [
@@ -60,6 +60,7 @@ export default async function Home() {
           width={200}
           height={200}
           src={myPicture}
+          placeholder="blur"
           alt="Damilola Jerugba in Native wear"
           className="order-1 w-48 rounded-full border-2 border-neutral-500 p-1 md:order-2"
         />
