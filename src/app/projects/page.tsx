@@ -18,7 +18,13 @@ export default function Projects() {
         Have a look at my Github for now:{" "}
         <Link href={GITHUB}>@damiisdandy</Link>
       </p>
-      <Image className="mt-6" src={comingSoon} alt="Coming soon" />
+      <Image
+        className="mt-6"
+        src={comingSoon}
+        alt="Coming soon"
+        width={400}
+        height={300}
+      />
     </section>
   );
 }

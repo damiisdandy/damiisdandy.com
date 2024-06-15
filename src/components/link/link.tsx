@@ -9,8 +9,7 @@ type LinkProps = {
 };
 
 export default function Link({ isExternal, ...props }: LinkProps) {
-  const style = `relative text-neutral-50 after:content-[' '] after:width-full after:absolute after:-bottom-[1px] after:left-0 after:block after:h-0.5 after:w-full after:bg-neutral-500 ${props.className}`;
-
+  const style = `hover:text-[#eee] underline decoration-neutral-500 decoration-2 underline-offset-[4.5px] ${props.className}`;
   if (props.href.startsWith("http") || isExternal) {
     return <a className={style} {...props} target="_blank" />;
   } else {
