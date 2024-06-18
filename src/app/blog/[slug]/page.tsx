@@ -11,6 +11,8 @@ import dayjs from "dayjs";
 import Badge from "~/components/badge/badge";
 import Image from "next/image";
 import { PLACE_HOLDER_IMAGE } from "~/constants";
+import Link from "~/components/link/link";
+import { Pen } from "lucide-react";
 
 const IBMPlexSans = IBM_Plex_Sans({ weight: ["700"], subsets: ["latin"] });
 
@@ -23,7 +25,7 @@ export default async function BlogBySlug(props: BlogBySlugProps) {
     props.params.slug,
   );
 
-  const { title, publishedAt, tags } = metadata;
+  const { title, publishedAt, tags, gitHubPage } = metadata;
 
   return (
     <div>
@@ -36,14 +38,14 @@ export default async function BlogBySlug(props: BlogBySlugProps) {
         <span>{dayjs(publishedAt).format("MMMM D, YYYY")}</span>
         <span>{estimateReadingTime(source)} min read</span>
       </div>
-      <div className="mt-3 flex flex-wrap items-center gap-2">
+      <div className="mb-6 mt-3 flex flex-wrap items-center gap-2">
         {tags.map((tag) => (
           <Badge key={tag}>{tag}</Badge>
         ))}
       </div>
       {metadata.image && (
         <Image
-          className="my-6 rounded-lg object-cover"
+          className="mb-6 rounded-lg object-cover"
           src={metadata.image}
           blurDataURL={PLACE_HOLDER_IMAGE}
           placeholder="blur"
@@ -63,6 +65,13 @@ export default async function BlogBySlug(props: BlogBySlugProps) {
             ),
           }}
         />
+      </div>
+
+      <div className="mt-2 flex items-center justify-end gap-2">
+        <Pen size={12} />
+        <Link className="text-sm text-neutral-400 underline" href={gitHubPage}>
+          Edit page on GitHub
+        </Link>
       </div>
     </div>
   );

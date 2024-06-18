@@ -43,13 +43,18 @@ export const markdownRouter = createTRPCRouter({
         .slice(0, limit);
     }),
   getBlogBySlug: publicProcedure.input(z.string()).query(async ({ input }) => {
-    const blogMDXContent = await readMDXFile(`/blogs/${input}.mdx`);
+    const gitHubURL =
+      "https://github.com/damiisdandy/damiisdandy.com/blob/main/";
+    const filePath = `/blogs/${input}.mdx`;
+    const gitHubPage = `src/content/${filePath}`;
+    const blogMDXContent = await readMDXFile(filePath);
     const { metadata, source } = parseMDX(blogMDXContent);
     return {
       metadata: {
         ...metadata,
         tags: metadata.tags.split(",").map((tag) => tag.trim()),
         viewCount: 0,
+        gitHubPage: gitHubURL + gitHubPage,
       },
       source,
     };
