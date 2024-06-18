@@ -20,9 +20,11 @@ export const generatePostSEOMetadata = async (
 
   if (!metadata) return;
 
-  const { title, summary, publishedAt, type } = metadata;
+  const { title, summary, publishedAt, image, type } = metadata;
 
   const urlDir = type === "post" ? "blog" : "projects";
+
+  const ogImage = `${getBaseUrl()}${image}`;
 
   return {
     title,
@@ -34,14 +36,21 @@ export const generatePostSEOMetadata = async (
       type: "article",
       publishedTime: publishedAt,
       url: `${getBaseUrl()}/${urlDir}/${args.params.slug}`,
+      images: [
+        {
+          url: ogImage,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description: summary,
+      images: [ogImage],
     },
   };
 };
+
 
 // Function to get the ordinal suffix for a given day
 export const getOrdinalSuffix = (day: number) => {
