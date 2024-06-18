@@ -6,7 +6,6 @@ import {
 } from "~/server/parser/parser";
 import { z } from "zod";
 
-
 const getBlogsInput = z.object({
   query: z.string().optional(),
   limit: z.number().optional(),
@@ -44,7 +43,8 @@ export const markdownRouter = createTRPCRouter({
         .slice(0, limit);
     }),
   getBlogBySlug: publicProcedure.input(z.string()).query(async ({ input }) => {
-    const gitHubURL = "https://github.com/damiisdandy/damiisdandy.com/blob/main/"
+    const gitHubURL =
+      "https://github.com/damiisdandy/damiisdandy.com/blob/main/";
     const filePath = `/blogs/${input}.mdx`;
     const gitHubPage = `src/content/${filePath}`;
     const blogMDXContent = await readMDXFile(filePath);
