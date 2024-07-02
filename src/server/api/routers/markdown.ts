@@ -17,7 +17,6 @@ const getContentBySlugInput = z.object({
   type: z.enum(["project", "blog"]),
 });
 
-
 export const markdownRouter = createTRPCRouter({
   careerPage: publicProcedure.query(async () => {
     const careerMDXContent = await readMDXFile("/pages/resume.mdx");
@@ -42,39 +41,45 @@ export const markdownRouter = createTRPCRouter({
           };
         });
         return await Promise.all(blogMDXContent);
-      }
+      };
       if (type === "all") {
-        const projects = await gatherContent("project")
-        const blogs = await gatherContent("blog")
-        return [...projects, ...blogs].sort(
-          (a, b) =>
-            new Date(b.publishedAt).getTime() -
-            new Date(a.publishedAt).getTime(),
-        ).slice(0, limit)
+        const projects = await gatherContent("project");
+        const blogs = await gatherContent("blog");
+        return [...projects, ...blogs]
+          .sort(
+            (a, b) =>
+              new Date(b.publishedAt).getTime() -
+              new Date(a.publishedAt).getTime(),
+          )
+          .slice(0, limit);
       }
 
       const content = await gatherContent(type);
-      return content.sort(
-        (a, b) =>
-          new Date(b.publishedAt).getTime() -
-          new Date(a.publishedAt).getTime(),
-      ).slice(0, limit);
+      return content
+        .sort(
+          (a, b) =>
+            new Date(b.publishedAt).getTime() -
+            new Date(a.publishedAt).getTime(),
+        )
+        .slice(0, limit);
     }),
-  getContentBySlug: publicProcedure.input(getContentBySlugInput).query(async ({ input }) => {
-    const gitHubURL =
-      "https://github.com/damiisdandy/damiisdandy.com/blob/main/";
-    const filePath = `/${input.type}s/${input.slug}.mdx`;
-    const gitHubPage = `src/content/${filePath}`;
-    const MDXContent = await readMDXFile(filePath);
-    const { metadata, source } = parseMDX(MDXContent);
-    return {
-      metadata: {
-        ...metadata,
-        tags: metadata.tags.split(",").map((tag) => tag.trim()),
-        viewCount: 0,
-        gitHubPage: gitHubURL + gitHubPage,
-      },
-      source,
-    };
-  }),
+  getContentBySlug: publicProcedure
+    .input(getContentBySlugInput)
+    .query(async ({ input }) => {
+      const gitHubURL =
+        "https://github.com/damiisdandy/damiisdandy.com/blob/main/";
+      const filePath = `/${input.type}s/${input.slug}.mdx`;
+      const gitHubPage = `src/content/${filePath}`;
+      const MDXContent = await readMDXFile(filePath);
+      const { metadata, source } = parseMDX(MDXContent);
+      return {
+        metadata: {
+          ...metadata,
+          tags: metadata.tags.split(",").map((tag) => tag.trim()),
+          viewCount: 0,
+          gitHubPage: gitHubURL + gitHubPage,
+        },
+        source,
+      };
+    }),
 });

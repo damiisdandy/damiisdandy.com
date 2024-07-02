@@ -11,11 +11,10 @@ export type BlogBySlugProps = {
   params: {
     slug: string;
   };
-  type: "blog" | "project";
 };
 
 export const generatePostSEOMetadata = async (
-  args: BlogBySlugProps,
+  args: BlogBySlugProps & { type: "blog" | "project" },
 ): Promise<Metadata | undefined> => {
   const { metadata } = await api.markdown.getContentBySlug({
     slug: args.params.slug,
@@ -54,7 +53,6 @@ export const generatePostSEOMetadata = async (
     },
   };
 };
-
 
 // Function to get the ordinal suffix for a given day
 export const getOrdinalSuffix = (day: number) => {

@@ -1,7 +1,9 @@
 import { api } from "~/trpc/server";
 
 export default async function sitemap() {
-  const blogs = await api.markdown.getBlogs({});
+  const blogs = await api.markdown.getContent({
+    type: "all",
+  });
 
   const routes = ["", "/blog", "/career", "/projects", "/work"].map(
     (route) => ({
@@ -11,7 +13,7 @@ export default async function sitemap() {
   );
 
   const blogURLs = blogs.map((blog) => ({
-    url: `https://damiisdandy.com/blog/${blog.slug}`,
+    url: `https://damiisdandy.com/${blog.type === "project" ? "projects" : "blog"}/${blog.slug}`,
     lastModified: new Date().toISOString().split("T")[0],
   }));
 
