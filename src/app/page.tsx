@@ -36,7 +36,7 @@ const FEATURED_REPOS = [
 ];
 
 export default async function Home() {
-  const blogs = await api.markdown.getBlogs({ limit: 3 });
+  const blogs = await api.markdown.getContent({ limit: 3, type: "all" });
   return (
     <main>
       <header className="mb-4 flex flex-col items-center justify-between gap-12 md:mb-12 md:flex-row">
@@ -112,7 +112,11 @@ export default async function Home() {
         <Heading>Recent Blogs</Heading>
         <div className="space-y-10">
           {blogs.map((blog) => (
-            <BlogItem key={blog.slug} {...blog} />
+            <BlogItem
+              isProject={blog.type === "project"}
+              key={blog.slug}
+              {...blog}
+            />
           ))}
         </div>
       </section>

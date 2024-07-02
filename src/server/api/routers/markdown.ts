@@ -6,10 +6,17 @@ import {
 } from "~/server/parser/parser";
 import { z } from "zod";
 
-const getBlogsInput = z.object({
+const getContentInput = z.object({
   query: z.string().optional(),
   limit: z.number().optional(),
+  type: z.enum(["all", "project", "blog"]),
 });
+
+const getContentBySlugInput = z.object({
+  slug: z.string(),
+  type: z.enum(["project", "blog"]),
+});
+
 
 export const markdownRouter = createTRPCRouter({
   careerPage: publicProcedure.query(async () => {
@@ -18,37 +25,48 @@ export const markdownRouter = createTRPCRouter({
       ...parseMDX(careerMDXContent, true),
     };
   }),
-  getBlogs: publicProcedure
-    .input(getBlogsInput)
-    .query(async ({ input: { limit } }) => {
-      const files = getAllFilesInDir("/blogs");
-      const blogMDXContent = files.map(async (file) => {
-        const fileName = file.split("/").pop() ?? "";
-        const content = await readMDXFile(`/blogs/${fileName}`);
-        const { metadata } = parseMDX(content);
-        return {
-          ...metadata,
-          slug: fileName.replace(".mdx", ""),
-          tags: metadata.tags.split(",").map((tag) => tag.trim()),
-          viewCount: 0,
-        };
-      });
-      const blogs = await Promise.all(blogMDXContent);
-      return blogs
-        .sort(
+  getContent: publicProcedure
+    .input(getContentInput)
+    .query(async ({ input: { limit, type } }) => {
+      const gatherContent = async (type: "blog" | "project") => {
+        const files = getAllFilesInDir(`/${type}s`);
+        const blogMDXContent = files.map(async (file) => {
+          const fileName = file.split("/").pop() ?? "";
+          const content = await readMDXFile(`/${type}s/${fileName}`);
+          const { metadata } = parseMDX(content);
+          return {
+            ...metadata,
+            slug: fileName.replace(".mdx", ""),
+            tags: metadata.tags.split(",").map((tag) => tag.trim()),
+            viewCount: 0,
+          };
+        });
+        return await Promise.all(blogMDXContent);
+      }
+      if (type === "all") {
+        const projects = await gatherContent("project")
+        const blogs = await gatherContent("blog")
+        return [...projects, ...blogs].sort(
           (a, b) =>
             new Date(b.publishedAt).getTime() -
             new Date(a.publishedAt).getTime(),
-        )
-        .slice(0, limit);
+        ).slice(0, limit)
+      }
+
+      const content = await gatherContent(type);
+      return content.sort(
+        (a, b) =>
+          new Date(b.publishedAt).getTime() -
+          new Date(a.publishedAt).getTime(),
+      ).slice(0, limit);
     }),
-  getBlogBySlug: publicProcedure.input(z.string()).query(async ({ input }) => {
+  getContentBySlug: publicProcedure.input(getContentBySlugInput).query(async ({ input }) => {
     const gitHubURL =
       "https://github.com/damiisdandy/damiisdandy.com/blob/main/";
-    const filePath = `/blogs/${input}.mdx`;
+    const filePath = `/${input.type}s/${input.slug}.mdx`;
     const gitHubPage = `src/content/${filePath}`;
-    const blogMDXContent = await readMDXFile(filePath);
-    const { metadata, source } = parseMDX(blogMDXContent);
+    const MDXContent = await readMDXFile(filePath);
+    const { metadata, source } = parseMDX(MDXContent);
     return {
       metadata: {
         ...metadata,

@@ -1,30 +1,27 @@
 import { type Metadata } from "next";
+import BlogItem from "~/components/blog-item/blog-item";
 import Heading from "~/components/heading/heading";
-import Link from "~/components/link/link";
-import { GITHUB } from "~/constants";
-import comingSoon from "~/assets/coming-soon.webp";
-import Image from "next/image";
+import { api } from "~/trpc/server";
 
 export const metadata: Metadata = {
-  title: "Projects",
-  description: "What i've built",
+  title: "Project",
+  description: "What I have built",
 };
 
-export default function Projects() {
+export default async function Blog() {
+  const projects = await api.markdown.getContent({ type: "project" });
   return (
-    <section>
-      <Heading>Page under construction</Heading>
+    <div>
+      <Heading>Projects</Heading>
       <p>
-        Have a look at my Github for now:{" "}
-        <Link href={GITHUB}>@damiisdandy</Link>
+        Here are list of projects I have built. I have documented the code and
+        how I built them.
       </p>
-      <Image
-        className="mt-6"
-        src={comingSoon}
-        alt="Coming soon"
-        width={400}
-        height={300}
-      />
-    </section>
+      <div className="mt-12 space-y-10">
+        {projects.map((blog) => (
+          <BlogItem isProject key={blog.slug} {...blog} />
+        ))}
+      </div>
+    </div>
   );
 }

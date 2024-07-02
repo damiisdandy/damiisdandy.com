@@ -11,12 +11,16 @@ export type BlogBySlugProps = {
   params: {
     slug: string;
   };
+  type: "blog" | "project";
 };
 
 export const generatePostSEOMetadata = async (
   args: BlogBySlugProps,
 ): Promise<Metadata | undefined> => {
-  const { metadata } = await api.markdown.getBlogBySlug(args.params.slug);
+  const { metadata } = await api.markdown.getContentBySlug({
+    slug: args.params.slug,
+    type: args.type,
+  });
 
   if (!metadata) return;
 

@@ -17,13 +17,13 @@ import { Pen } from "lucide-react";
 const IBMPlexSans = IBM_Plex_Sans({ weight: ["700"], subsets: ["latin"] });
 
 export async function generateMetadata(args: BlogBySlugProps) {
-  return generatePostSEOMetadata({ ...args, type: "blog" });
+  return generatePostSEOMetadata({ ...args, type: "project" });
 }
 
-export default async function BlogBySlug(props: BlogBySlugProps) {
+export default async function ProjectBySlug(props: BlogBySlugProps) {
   const { metadata, source } = await api.markdown.getContentBySlug({
     slug: props.params.slug,
-    type: "blog",
+    type: "project",
   });
 
   const { title, publishedAt, tags, gitHubPage } = metadata;

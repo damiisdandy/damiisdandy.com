@@ -7,6 +7,7 @@ type BlogItemProps = {
   title: string;
   publishedAt: string;
   tags: string[];
+  isProject?: boolean;
 };
 
 export default function BlogItem({
@@ -14,14 +15,16 @@ export default function BlogItem({
   title,
   publishedAt,
   tags,
+  isProject,
 }: BlogItemProps) {
   return (
     <div>
-      <Link href={`/blog/${slug}`}>{title}</Link>
+      <Link href={`/${isProject ? "projects" : "blog"}/${slug}`}>{title}</Link>
       <p className="text-sm text-neutral-400">
         Created on {formatDate(new Date(publishedAt))}
       </p>
       <div className="mt-2 flex flex-wrap items-center gap-2">
+        {isProject && <Badge>Project</Badge>}
         {tags.map((tag) => (
           <Badge key={tag}>{tag}</Badge>
         ))}

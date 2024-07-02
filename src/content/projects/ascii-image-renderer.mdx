@@ -1,0 +1,104 @@
+---
+title: ASCII Image Renderer 🖼️
+publishedAt: 2024-07-02
+summary: Building a simple ASCII image renderer.
+image: /og/johnny-bravo-og.png
+tags: Python, Terminal, ASCII, Tutorial
+type: project
+---
+
+We will be building a simple ASCII image renderer.
+
+## What is ASCII?
+ASCII (American Standard Code for Information Interchange) is a data-encoding format for electronic computer communication.
+ASCII assigns standard numeric values to letters, numerals, punctuation marks, and other computer characters.
+
+![ascii table](/content/ascii-table.png)
+
+## Understanding what an image is
+An image is a collection of pixels, each pixel can hold a color value in the [RGB format](https://en.wikipedia.org/wiki/RGB_color_model).
+```
+RED ->      (255, 0, 0)
+GREEN ->    (0, 255, 0)
+BLUE ->     (0, 0, 255)
+BLACK ->    (0, 0, 0)
+WHITE ->    (255, 255, 255)
+```
+We create different colors by blending <span style={{color:"#ef4444"}}>red</span>, <span style={{color:"#84cc16"}}>green</span>, and <span style={{color:"#3b82f6"}}>blue</span>, with each color's value ranging from `0` to `255`.
+A value of `0` represents the absence of that color, while `255` represents the fully saturated version of that color.
+
+## My Approach
+To render each pixel in a terminal, we need to calculate the color of each pixel. Instead of using colors, we will render the image in black and white.
+We have to determine the brightness of each pixel, which can range from the darkest `(0, 0, 0)` to the brightest `(255, 255, 255)`. This brightness will be calculated by finding the average value of red, green, and blue for each pixel.
+
+```python
+brightness = int((R + G + B) / 3)
+```
+Once we have the brightness of each pixel, we will represent each brightness value using specific characters. These characters will reflect the brightness values, ranging from dark to light.
+
+```python
+PIXELS = ".'`^\",:;Il!i><~+_-?][}{1)(|\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"
+```
+
+For example, we use a period `.` for the darkest part compared to a dollar sign `$` because it doesn't cover as much space relative to where it is rendered. We will be using this image of Johnny Bravo for testing.
+
+![johnny bravo](/content/johnny-bravo.jpg)
+
+## Rendering the Image
+I will render the images in a manner similar to a printer, row by row. This involves looping through each pixel of an image, mapping the pixel to a character, and adding a line break based on the width of the image.
+For this project, I am using Python and processing each image with the [pillow package](https://pypi.org/project/pillow/).
+
+![code snippet](/content/ascii-renderer-code-snippet-1.png)
+
+
+## Considering terminal width
+In the same way that images appear differently based on the screen resolution, we also want to adjust how images are displayed based on the width of the terminal.
+If the number of pixels or characters per row is greater than the terminal's width, each line will break, causing the image to not render as expected.
+To address this, we need to compress each image so that it has a maximum width equal to the size of the active terminal.
+We don't need to worry about the height, as users can simply scroll to view the entire image.
+
+```python
+import os
+
+TERMINAL_WIDTH = os.get_terminal_size().columns
+
+img = Image.open(image_path).convert("RGB")
+width, height = img.size
+image_ratio = width / height
+
+resized_width = int(TERMINAL_WIDTH * coverage)
+if width > resized_width:
+    img = img.resize((resized_width, int(resized_width / image_ratio)))
+    width, height = img.size
+```
+Where `coverage` is a value between `0` and `1` that represents how much of the terminal width should be used for the image.
+
+![rendered image](/content/ascii-renderer-output.png)
+
+## Issue with terminal font
+The image appears stretched vertically because of the font size relative to the line height. 
+To resolve this, we will double the number of pixels or characters per row to achieve a better approximation. Additionally, we still need to consider the width of the terminal.
+
+```python
+PIXEL_WIDTH_MULTIPLIER = 2
+resized_width = int(TERMINAL_WIDTH * coverage * 1 / PIXEL_WIDTH_MULTIPLIER)
+```
+Within the `for` loop.
+```python
+ pixel_art += PIXELS[pixel_index] * PIXEL_WIDTH_MULTIPLIER
+```
+
+## Result
+![rendered image fixed](/content/ascii-renderer-output-fixed.png)
+When you have a closer look you'll see each unique character that combine to form the image.
+![rendered image zoomed](/content/ascii-renderer-output-zoomed.png)
+
+## Conclusion
+This project was relatively easy to do and helps to understand how images work. It's fascinating to see how everything can be represented numerically.
+That's why I enjoy working with microcontrollers and sensors because we're essentially converting signals and physical properties into something we can work with numerically.
+Once we have those numbers, we can build just about anything!
+
+
+<RepositoryCard name="ascii-image-renderer" />
+
+
