@@ -30,7 +30,11 @@ export const markdownRouter = createTRPCRouter({
       const gatherContent = async (type: "blog" | "project") => {
         const files = getAllFilesInDir(`/${type}s`);
         const blogMDXContent = files.map(async (file) => {
-          const fileName = file.split("/").pop() ?? "";
+          const fileName = file
+            .split("/")
+            .slice(-2)
+            .join("/")
+            .replace(`${type}s/`, "");
           const content = await readMDXFile(`/${type}s/${fileName}`);
           const { metadata } = parseMDX(content);
           return {

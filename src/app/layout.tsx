@@ -2,12 +2,12 @@ import "~/styles/globals.css";
 
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
-
 import { TRPCReactProvider } from "~/trpc/react";
 import Navbar from "~/components/navbar/navbar";
 import Footer from "~/components/footer/footer";
 import { type Metadata } from "next";
 import { PHProvider } from "./provider";
+import clsx from "clsx";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -28,7 +28,11 @@ export default function RootLayout({ children }: LayoutProps) {
     <html lang="en">
       <PHProvider>
         <body
-          className={`font-sans ${GeistSans.variable} ${GeistMono.variable} leading bg-neutral-900 p-5 text-neutral-300`}
+          className={clsx(
+            "leading bg-neutral-900 p-5 font-sans text-neutral-300",
+            GeistMono.variable,
+            GeistSans.variable,
+          )}
         >
           <TRPCReactProvider>
             <Container>{children}</Container>

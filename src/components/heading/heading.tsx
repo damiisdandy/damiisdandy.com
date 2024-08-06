@@ -2,12 +2,6 @@
 
 import { type ReactNode } from "react";
 import clsx from "clsx";
-import { IBM_Plex_Sans } from "next/font/google";
-
-const IBMPlexSans = IBM_Plex_Sans({
-  weight: ["600"],
-  subsets: ["latin"],
-});
 
 export default function Heading({
   children,
@@ -18,13 +12,9 @@ export default function Heading({
 }) {
   return (
     <h1
-      className={clsx(
-        IBMPlexSans.className,
-        "text-3xl font-bold text-neutral-50",
-        {
-          "mb-3": !noMargin,
-        },
-      )}
+      className={clsx("font-ibm text-3xl font-bold text-neutral-50", {
+        "mb-3": !noMargin,
+      })}
     >
       {children}
     </h1>

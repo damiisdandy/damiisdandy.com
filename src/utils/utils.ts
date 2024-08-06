@@ -9,7 +9,7 @@ export function getBaseUrl() {
 
 export type BlogBySlugProps = {
   params: {
-    slug: string;
+    slug: string[];
   };
 };
 
@@ -17,7 +17,7 @@ export const generatePostSEOMetadata = async (
   args: BlogBySlugProps & { type: "blog" | "project" },
 ): Promise<Metadata | undefined> => {
   const { metadata } = await api.markdown.getContentBySlug({
-    slug: args.params.slug,
+    slug: args.params.slug.join("/"),
     type: args.type,
   });
 

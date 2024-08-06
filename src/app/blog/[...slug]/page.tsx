@@ -13,6 +13,9 @@ import Image from "next/image";
 import { PLACE_HOLDER_IMAGE } from "~/constants";
 import Link from "~/components/link/link";
 import { Pen } from "lucide-react";
+import Difficulty, {
+  type DifficultyProps,
+} from "~/components/difficulty/difficulty";
 
 const IBMPlexSans = IBM_Plex_Sans({ weight: ["700"], subsets: ["latin"] });
 
@@ -22,7 +25,7 @@ export async function generateMetadata(args: BlogBySlugProps) {
 
 export default async function BlogBySlug(props: BlogBySlugProps) {
   const { metadata, source } = await api.markdown.getContentBySlug({
-    slug: props.params.slug,
+    slug: props.params.slug.join("/"),
     type: "blog",
   });
 
@@ -64,6 +67,7 @@ export default async function BlogBySlug(props: BlogBySlugProps) {
                 <RepositoryCard name={name} />
               </div>
             ),
+            Difficulty: (props: DifficultyProps) => <Difficulty {...props} />,
           }}
         />
       </div>
