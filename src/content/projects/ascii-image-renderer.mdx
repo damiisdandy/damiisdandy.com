@@ -17,7 +17,7 @@ ASCII assigns standard numeric values to letters, numerals, punctuation marks, a
 
 ## Understanding what an image is
 An image is a collection of pixels, each pixel can hold a color value in the [RGB format](https://en.wikipedia.org/wiki/RGB_color_model).
-```
+```python
 RED ->      (255, 0, 0)
 GREEN ->    (0, 255, 0)
 BLUE ->     (0, 0, 255)
@@ -48,8 +48,29 @@ For example, we use a period `.` for the darkest part compared to a dollar sign 
 I will render the images in a manner similar to a printer, row by row. This involves looping through each pixel of an image, mapping the pixel to a character, and adding a line break based on the width of the image.
 For this project, I am using Python and processing each image with the [pillow package](https://pypi.org/project/pillow/).
 
-![code snippet](/content/ascii-renderer-code-snippet-1.png)
+```python
+from PIL import Image
 
+PIXELS = ".'`^\",:;Il!i><~+_-?][}{1)(|\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"
+
+img = Image.open(image_path).convert("RGB")
+width, height = img.size
+
+pixels = img.load()
+pixel_art = ""
+for y in range(height):
+    for x in range(width):
+        R, G, B = pixels[x, y]
+        # calculating greyscale value (Average method)
+        brightness = (R + G + B) // 3
+        pixel_index = int(((brightness) / 255) * len(PIXELS))
+        # making sure the pixel index is within the range of PIXELS
+        pixel_index = min(pixel_index, len(PIXELS) - 1)
+        pixel_art += PIXELS[pixel_index]
+    # render each line
+    pixel_art += "\n"
+print(pixel_art)
+```
 
 ## Considering terminal width
 In the same way that images appear differently based on the screen resolution, we also want to adjust how images are displayed based on the width of the terminal.
@@ -76,7 +97,7 @@ Where `coverage` is a value between `0` and `1` that represents how much of the 
 ![rendered image](/content/ascii-renderer-output.png)
 
 ## Issue with terminal font
-The image appears stretched vertically because of the font size relative to the line height. 
+The image appears stretched vertically because of the font size relative to the line height.
 To resolve this, we will double the number of pixels or characters per row to achieve a better approximation. Additionally, we still need to consider the width of the terminal.
 
 ```python
@@ -100,5 +121,3 @@ Once we have those numbers, we can build just about anything!
 
 
 <RepositoryCard name="ascii-image-renderer" />
-
-

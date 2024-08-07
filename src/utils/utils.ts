@@ -9,15 +9,19 @@ export function getBaseUrl() {
 
 export type BlogBySlugProps = {
   params: {
-    slug: string[];
+    slug: string | string[];
   };
 };
 
 export const generatePostSEOMetadata = async (
   args: BlogBySlugProps & { type: "blog" | "project" },
 ): Promise<Metadata> => {
+  const slug =
+    typeof args.params.slug == "string"
+      ? args.params.slug
+      : args.params.slug.join("/");
   const { metadata } = await api.markdown.getContentBySlug({
-    slug: args.params.slug.join("/"),
+    slug,
     type: args.type,
   });
 
@@ -38,7 +42,7 @@ export const generatePostSEOMetadata = async (
       description: summary,
       type: "article",
       publishedTime: publishedAt,
-      url: `${getBaseUrl()}/${urlDir}/${args.params.slug.join("/")}`,
+      url: `${getBaseUrl()}/${urlDir}/${slug}`,
       images: [
         {
           url: ogImage,

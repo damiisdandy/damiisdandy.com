@@ -23,7 +23,13 @@ export default function Code({
     >
       <SyntaxHighlighter
         PreTag={isInline ? "code" : "pre"}
-        customStyle={isInline ? inlineStyle : {}}
+        customStyle={
+          isInline
+            ? inlineStyle
+            : {
+                padding: "15px 20px",
+              }
+        }
         language={language}
         style={style}
       >
