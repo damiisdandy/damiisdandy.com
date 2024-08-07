@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Blog() {
-  const projects = await api.markdown.getContent({ type: "project" });
+  const projects = await api.markdown.getAllContentByType({ type: "project" });
   return (
     <div>
       <Heading>Projects</Heading>

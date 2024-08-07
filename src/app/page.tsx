@@ -36,7 +36,10 @@ const FEATURED_REPOS = [
 ];
 
 export default async function Home() {
-  const blogs = await api.markdown.getContent({ limit: 3, type: "all" });
+  const blogs = await api.markdown.getAllContentByType({
+    limit: 3,
+    type: "all",
+  });
   return (
     <main>
       <header className="mb-4 flex flex-col items-center justify-between gap-12 md:mb-12 md:flex-row">

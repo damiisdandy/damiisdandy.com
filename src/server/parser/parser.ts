@@ -9,6 +9,7 @@ export type Metadata = {
   image?: string;
   viewCount: number;
   type: string;
+  draft?: string;
 };
 
 type FrontMatter = Omit<Metadata, "viewCount">;

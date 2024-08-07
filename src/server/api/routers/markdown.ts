@@ -1,5 +1,6 @@
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 import {
+  Metadata,
   getAllFilesInDir,
   parseMDX,
   readMDXFile,
@@ -24,7 +25,7 @@ export const markdownRouter = createTRPCRouter({
       ...parseMDX(careerMDXContent, true),
     };
   }),
-  getContent: publicProcedure
+  getAllContentByType: publicProcedure
     .input(getContentInput)
     .query(async ({ input: { limit, type } }) => {
       const gatherContent = async (type: "blog" | "project") => {
@@ -50,6 +51,7 @@ export const markdownRouter = createTRPCRouter({
         const projects = await gatherContent("project");
         const blogs = await gatherContent("blog");
         return [...projects, ...blogs]
+          .filter((item) => !item.draft)
           .sort(
             (a, b) =>
               new Date(b.publishedAt).getTime() -
@@ -60,6 +62,7 @@ export const markdownRouter = createTRPCRouter({
 
       const content = await gatherContent(type);
       return content
+        .filter((item) => !item.draft)
         .sort(
           (a, b) =>
             new Date(b.publishedAt).getTime() -
@@ -74,16 +77,37 @@ export const markdownRouter = createTRPCRouter({
         "https://github.com/damiisdandy/damiisdandy.com/blob/main/";
       const filePath = `/${input.type}s/${input.slug}.mdx`;
       const gitHubPage = `src/content/${filePath}`;
-      const MDXContent = await readMDXFile(filePath);
-      const { metadata, source } = parseMDX(MDXContent);
-      return {
-        metadata: {
-          ...metadata,
-          tags: metadata.tags.split(",").map((tag) => tag.trim()),
+      try {
+        const MDXContent = await readMDXFile(filePath);
+        const { metadata, source } = parseMDX(MDXContent);
+        return {
+          metadata: {
+            ...metadata,
+            tags: metadata.tags.split(",").map((tag) => tag.trim()),
+            viewCount: 0,
+            gitHubPage: gitHubURL + gitHubPage,
+          },
+          source,
+          notFound: false,
+        };
+      } catch (e) {
+        const defaultMetadata: Metadata = {
+          publishedAt: new Date().toString(),
+          summary: "not found",
+          tags: "",
+          title: "Not Found",
+          type: input.type,
           viewCount: 0,
-          gitHubPage: gitHubURL + gitHubPage,
-        },
-        source,
-      };
+        };
+        return {
+          notFound: true,
+          metadata: {
+            ...defaultMetadata,
+            tags: [],
+            gitHubPage: "",
+          },
+          source: "not found",
+        };
+      }
     }),
 });

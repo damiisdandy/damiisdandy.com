@@ -13,6 +13,7 @@ import Image from "next/image";
 import { PLACE_HOLDER_IMAGE } from "~/constants";
 import Link from "~/components/link/link";
 import { Pen } from "lucide-react";
+import { notFound as goto404 } from "next/navigation";
 import Difficulty, {
   type DifficultyProps,
 } from "~/components/difficulty/difficulty";
@@ -24,10 +25,12 @@ export async function generateMetadata(args: BlogBySlugProps) {
 }
 
 export default async function BlogBySlug(props: BlogBySlugProps) {
-  const { metadata, source } = await api.markdown.getContentBySlug({
+  const { metadata, source, notFound } = await api.markdown.getContentBySlug({
     slug: props.params.slug.join("/"),
     type: "blog",
   });
+
+  if (notFound) return goto404();
 
   const { title, publishedAt, tags, gitHubPage } = metadata;
 
