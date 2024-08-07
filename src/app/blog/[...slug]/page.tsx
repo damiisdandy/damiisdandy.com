@@ -4,6 +4,7 @@ import { api } from "~/trpc/server";
 import {
   estimateReadingTime,
   generatePostSEOMetadata,
+  parseSlug,
   type BlogBySlugProps,
 } from "~/utils/utils";
 import { IBM_Plex_Sans } from "next/font/google";
@@ -26,7 +27,7 @@ export async function generateMetadata(args: BlogBySlugProps) {
 
 export default async function BlogBySlug(props: BlogBySlugProps) {
   const { metadata, source, notFound } = await api.markdown.getContentBySlug({
-    slug: props.params.slug.join("/"),
+    slug: parseSlug(props.params.slug),
     type: "blog",
   });
 

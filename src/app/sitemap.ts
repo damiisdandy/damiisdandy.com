@@ -1,7 +1,7 @@
 import { api } from "~/trpc/server";
 
 export default async function sitemap() {
-  const blogs = await api.markdown.getContent({
+  const blogs = await api.markdown.getAllContentByType({
     type: "all",
   });
 

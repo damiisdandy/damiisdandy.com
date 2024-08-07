@@ -1,6 +1,6 @@
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 import {
-  Metadata,
+  type Metadata,
   getAllFilesInDir,
   parseMDX,
   readMDXFile,

@@ -13,13 +13,14 @@ export type BlogBySlugProps = {
   };
 };
 
+export const parseSlug = (str: string | string[]) => {
+  return typeof str == "string" ? str : str.join("/");
+};
+
 export const generatePostSEOMetadata = async (
   args: BlogBySlugProps & { type: "blog" | "project" },
 ): Promise<Metadata> => {
-  const slug =
-    typeof args.params.slug == "string"
-      ? args.params.slug
-      : args.params.slug.join("/");
+  const slug = parseSlug(args.params.slug);
   const { metadata } = await api.markdown.getContentBySlug({
     slug,
     type: args.type,
