@@ -9,6 +9,7 @@ import { type Metadata } from "next";
 import { PHProvider } from "./provider";
 import clsx from "clsx";
 import PostHogPageView from "~/components/posthug/pageview";
+import { Suspense } from "react";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -28,7 +29,9 @@ export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
       <PHProvider>
-        <PostHogPageView />
+        <Suspense>
+          <PostHogPageView />
+        </Suspense>
         <body
           className={clsx(
             "leading bg-neutral-900 p-5 font-sans text-neutral-300",

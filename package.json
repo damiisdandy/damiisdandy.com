@@ -28,7 +28,7 @@
     "dayjs": "^1.11.10",
     "geist": "^1.2.2",
     "lucide-react": "^0.394.0",
-    "next": "^14.2.4",
+    "next": "^14.2.5",
     "next-mdx-remote": "^4.4.1",
     "posthog-js": "^1.139.1",
     "react": "18.2.0",
@@ -65,5 +65,8 @@
   "ct3aMetadata": {
     "initVersion": "7.30.0"
   },
-  "packageManager": "pnpm@8.15.4"
+  "packageManager": "pnpm@8.15.4",
+  "engines": {
+    "node": ">=20.0.0"
+  }
 }
