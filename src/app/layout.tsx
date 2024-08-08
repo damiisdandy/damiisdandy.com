@@ -8,6 +8,7 @@ import Footer from "~/components/footer/footer";
 import { type Metadata } from "next";
 import { PHProvider } from "./provider";
 import clsx from "clsx";
+import PostHogPageView from "~/components/posthug/pageview";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
       <PHProvider>
+        <PostHogPageView />
         <body
           className={clsx(
             "leading bg-neutral-900 p-5 font-sans text-neutral-300",
